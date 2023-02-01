@@ -1,25 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-// import addProductData from "../../redux/thunk/products/addProductData";
+import { toast } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { addProduct } from "../../features/products/productsSlice";
+
 
 const AddProduct = () => {
   const { register, handleSubmit } = useForm();
+  const {isLoading, postSuccess, error, isError } = useSelector(state => state.product)
   const dispatch = useDispatch();
 
+
+  useEffect(()=>{
+    if(isLoading){
+      toast.loading("Posting...", {id: "addProduct"})
+    }
+  },[])
   const submit = (data) => {
     const product = {
       // id: 31,
-      title: data.title,
+      model: data.model,
       brand: data.brand,
       status: data.status === "true" ? true : false,
       price: data.price,
-      rating: data.rating,
-      images: [
-        "https://i.dummyjson.com/data/products/1/1.jpg"                                 
-      ]
+      keyFeature: [
+        data.keyFeature1,
+        data.keyFeature2,
+        data.keyFeature3,
+        data.keyFeature4,
+      ],
+      spec: []
     };
-    // dispatch(addProductData(product));
+    dispatch(addProduct(product));
   };
 
   return (
@@ -29,10 +41,10 @@ const AddProduct = () => {
         onSubmit={handleSubmit(submit)}
       >
         <div className='flex flex-col w-full max-w-xs'>
-          <label className='mb-2' htmlFor='title'>
+          <label className='mb-2' htmlFor='model'>
             Model
           </label>
-          <input type='text' id='title' {...register("title")} />
+          <input type='text' id='model' {...register("model")} />
         </div>
         <div className='flex flex-col w-full max-w-xs'>
           <label className='mb-2' htmlFor='image'>

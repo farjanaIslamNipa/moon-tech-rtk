@@ -312,6 +312,19 @@
           "cooler": "Antec Prizm X 120 ARGB 3+C Cooling Fan"
         }
       ]
+    },
+    {
+      "model": "wewqewqe",
+      "brand": "amd",
+      "status": true,
+      "keyFeature": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "spec": [],
+      "id": 9
     }
   ]
 }
